@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>Replay franceinfo radio</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Replay radio franceinfo">
+  <meta name="keywords" content="replay, radio, franceinfo, France_Info">
+  <meta name=" author" content="Bouboufez">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="rgb(255, 195, 0)">
+  <meta name="color-scheme" content="light dark">
+  <link href="https://www.francetvinfo.fr/skin/www/img/favicon/favicon.ico" rel="icon" type="image/png">
+  <link href="https://vjs.zencdn.net/7.8.2/video-js.css" rel="stylesheet">
+  <style>
+    #cont {
+      display: none;
+    }
+
+    #form {
+      display: inline-block;
+    }
+
+    #but {
+      display: none;
+    }
+
+    header {
+      margin: 30px;
+    }
+
+    div.img-top {
+      height: 45px;
+      width: 297px;
+      background-image: url("https://www.francetvinfo.fr/skin/www/img/lgo/logo.svg");
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background-size: 297px 45px;
+    }
+
+    h1 {
+      margin-top: 10px;
+      color: rgb(25, 25, 25);
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    body {
+      text-align: center;
+      color: rgb(50, 50, 50);
+      background-color: rgb(240, 240, 240);
+      font-size: 20px;
+      font-family: FranceTVBrown-Regular;
+    }
+
+    th {
+      font-size: 24px;
+    }
+
+    footer {
+      font-size: 10px;
+      color: rgb(80, 80, 80);
+      margin-top: 40px;
+    }
+
+    button {
+      background-color: rgb(255, 195, 0);
+      color: rgb(50, 50, 50);
+      border-radius: 5px;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-family: FranceTVBrown-Bold;
+      border: none;
+      font-size: 18px;
+      margin: 10px;
+
+    }
+
+    #submit:hover,
+    #submit:focus,
+    #but:hover,
+    #but:focus,
+    button.timeset:focus,
+    button.timeset:hover {
+      background-color: rgb(215, 215, 215);
+      cursor: pointer;
+    }
+
+    #advsubmit:hover,
+    #advsubmit:focus {
+      cursor: pointer;
+    }
+
+    label {
+      font-size: 16px;
+    }
+
+    #arrow {
+      background: url("https://www.francetvinfo.fr/skin/dist/www/img/audio/grid/grid-spritesmith-c90c3aa40d.png");
+      background-position: -42px -46px;
+      width: 18px;
+      height: 9px;
+      border: none;
+      border-image: none;
+    }
+
+    #adv {
+      display: none;
+    }
+
+    div.hours {
+      color: rgb(70, 70, 70);
+      float: right;
+      height: 42px;
+      vertical-align: middle;
+      font-size: 35px;
+      margin-right: 20px;
+      margin-top: 16px;
+      width: 200px;
+    }
+
+    input.vol {
+      float: right;
+      height: 42px;
+      vertical-align: middle;
+      margin-top: 16px;
+      margin-right: 20px;
+      width: 195px;
+    }
+
+    button.timeset {
+      padding-left: 15px;
+      padding-right: 15px;
+      margin-left: 5px;
+      margin-right: 5px;
+      margin-top: 15px;
+      clear: both;
+    }
+
+    button.play {
+      background-image: url("https://www.francetvinfo.fr/skin/dist/www/img/player-franceinfo/pause-3b114f152b.png");
+      background-size: 48px 48px;
+      border: none;
+      padding: 0px;
+      height: 48px;
+      width: 48px;
+      border-radius: 24px;
+      float: left;
+      margin-left: 20px;
+      margin-bottom: 0px;
+    }
+
+    button.play:hover,
+    button.play:focus,
+    button.mute:hover,
+    button.mute:focus {
+      cursor: pointer;
+    }
+
+    button.mute {
+      background-image: url("http://u.cubeupload.com/Bouboufez/audioon.png");
+      border: none;
+      clear: both;
+      border-radius: 25px;
+      height: 48px;
+      width: 48px;
+      padding: 0px;
+      margin-left: 20px;
+      float: left;
+    }
+
+    button#but {
+      margin-top: 30px;
+    }
+
+    video,
+    div.video-js {
+      display: none;
+    }
+
+div.preload {
+  display: none;
+}
+
+    /* Dark theme */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: rgb(50, 50, 50);
+        color: rgb(180, 180, 180);
+      }
+
+      h1 {
+        color: rgb(220, 220, 220);
+      }
+
+      footer {
+        color: rgb(150, 150, 150);
+      }
+
+      div.img-top {
+        background-image: url("https://www.francetvinfo.fr/skin/www/img/lgo/logo-white.svg");
+      }
+
+      div.hours {
+        color: rgb(170, 170, 170);
+      }
+    }
+
+    /* Police */
+    @font-face {
+      font-family: 'FranceTVBrown-Bold';
+      font-weight: normal;
+      font-style: normal;
+      src: url(https://staticftv-a.akamaihd.net/pom/gin-templates/v1.23.1/dist/fonts/FranceTVBrownTT-Bold.woff2) format('woff2'), url(https://staticftv-a.akamaihd.net/pom/gin-templates/v1.23.1/dist/fonts/FranceTVBrownTT-Bold.woff) format('woff'), url(https://staticftv-a.akamaihd.net/pom/gin-templates/v1.23.1/dist/fonts/FranceTVBrownTT-Bold.ttf) format('truetype');
+    }
+
+    @font-face {
+      font-family: 'FranceTVBrown-Regular';
+      font-weight: normal;
+      font-style: normal;
+      src: url(https://staticftv-a.akamaihd.net/pom/gin-templates/v1.23.1/dist/fonts/FranceTVBrownTT-Regular.woff2) format('woff2'), url(https://staticftv-a.akamaihd.net/pom/gin-templates/v1.23.1/dist/fonts/FranceTVBrownTT-Regular.woff) format('woff'), url(https://staticftv-a.akamaihd.net/pom/gin-templates/v1.23.1/dist/fonts/FranceTVBrownTT-Regular.ttf) format('truetype');
+    }
+  </style>
+  <script>
+    var dadv = 0;
+    var x;
+    var dela;
+    var blink;
+    var displayTime;
+    var nowp = 1;
+    var pbut;
+    var autoplay;
+    var Pb;
+    var linka;
+
+    function link(rep) {
+      var heur = document.getElementById("heur").value;
+      var min = document.getElementById("min").value;
+      var sec = document.getElementById("sec").value;
+      if (heur >= 24 || heur < 0 || min >= 60 || min < 0 || sec >= 60 || sec < 0) {
+        Pb = 1;
+      }
+      if (heur % 1 != 0 || min % 1 != 0 || sec % 1 != 0) {
+        Pb = 2;
+      }
+      var d = new Date();
+      var aheur = d.getHours();
+      var amin = d.getMinutes();
+      var asec = d.getSeconds();
+      var b0 = document.getElementById("day0");
+      var b1 = document.getElementById("day1");
+      var b2 = document.getElementById("day2");
+      if (rep == 0) {
+        heur = aheur;
+        min = amin;
+        sec = asec;
+        var journ = 0;
+      } else if (b0.checked == true) {
+        var journ = 0;
+      } else if (b1.checked == true) {
+        var journ = 1;
+      } else if (b2.checked == true) {
+        var journ = 2;
+      } else {
+        var journ = 999;
+      }
+      numlink = document.getElementById("selc");
+      if (numlink.selectedIndex == 0) {
+        var qual = "";
+      }
+      if (numlink.selectedIndex == 1) {
+        var qual = "_hifi";
+      }
+      if (numlink.selectedIndex == 2) {
+        var qual = "_midfi";
+      }
+      if (numlink.selectedIndex == 3) {
+        var qual = "_lofi";
+      }
+      sliderl = document.getElementById("del");
+      dela = sliderl.value;
+      dela = Number(dela);
+      if (rep == 0) {
+        var lived = -1 * dela;
+      } else {
+        var lived = 0;
+      }
+      blink = "https://stream.radiofrance.fr/franceinfo/franceinfo" + qual + ".m3u8?delay=";
+      x = ((aheur - heur) * 3600) + ((amin - min) * 60) + (asec - sec) + (journ * 86400) + lived;
+      linka = blink + (x + dela);
+    }
+
+    function loadScript(script_url) {
+      var head = document.getElementsByTagName('head')[0];
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = script_url;
+      head.appendChild(script);
+    }
+
+    function go(replay) {
+      Pb = 0;
+      link(replay)
+      if (replay == 1 && Pb == 1) {
+        window.alert("Merci d'entrer une date au format valide (heures entre 0 et 23, minutes et secondes entre 0 et 59)");
+      } else if (replay == 1 && Pb == 2) {
+        window.alert("Merci d'entrer uniquement des nombres entiers");
+      } else if (replay == 1 && x < 0) {
+        window.alert("Merci d'entrer une date valide (il n'est pas encore possible de voyager dans le futur !)");
+      } else {
+        var myPlayer = videojs('my_video_1');
+        myPlayer.src({ type: 'application/x-mpegURL', src: linka });
+        videojs.players.my_video_1.play()
+        document.getElementById("son").value = 100
+        document.getElementById("cont").style.display = "inline-block";
+        document.getElementById("form").style.display = "none";
+        document.getElementById("but").style.display = "inline-block";
+        displayTime = setInterval(Clock, 10)
+        pbut = setInterval(pButton, 10)
+        autoplay = setInterval(autop, 10)
+        vol()
+      }
+    }
+
+    function autop() {
+      if (videojs.players.my_video_1.readyState() == 4) {
+        videojs.players.my_video_1.play()
+        clearInterval(autoplay)
+      }
+    }
+
+    function Vrange() {
+      var slider = document.getElementById("del");
+      var output = document.getElementById("valrange");
+      output.innerHTML = slider.value;
+
+      slider.oninput = function () {
+        output.innerHTML = this.value;
+      }
+    }
+
+    function adv() {
+      if (dadv == 0) {
+        document.getElementById("adv").style.display = "inline";
+        document.getElementById("arrow").style.backgroundPosition = "-62px -46px";
+        dadv = 1;
+      } else {
+        document.getElementById("adv").style.display = "none";
+        document.getElementById("arrow").style.backgroundPosition = "-42px -46px";
+        dadv = 0;
+      }
+    }
+
+    function Move(time) {
+      var myPlayer = videojs('my_video_1');
+      x = x - time;
+      var tmp = 0
+      if (x < (-1 * dela)) {
+        x = -1 * dela
+        tmp = 1
+        window.alert("Vous regardez déjà le flux en direct, vous ne pouvez pas avancer davantage")
+      }
+      myPlayer.src({ type: 'application/x-mpegURL', src: blink + (x + dela) });
+      myPlayer.play()
+      if (tmp == 1) {
+        myPlayer.play()
+      }
+    }
+
+    function Clock() {
+      if (nowp == 1) {
+        var d1 = new Date();
+        var date = d1.getTime();
+        if (x > 0) {
+          var d2 = new Date(date - ((x + dela - 15) * 1000));
+        } else {
+          var d2 = new Date(date);
+        }
+        var t = d2.toLocaleTimeString();
+        document.getElementById("hour").innerHTML = t;
+      }
+    }
+
+    function pButton() {
+      if (videojs.players.my_video_1.readyState() != 4) {
+        document.getElementById("pp").style.backgroundImage = "url('https://framapic.org/DctsFrEd2HQ6/Tf94EY2pl8zo.webp')"
+        document.getElementById("pp").style.backgroundColor = "transparent"
+        nowp = 0
+      } else if (videojs.players.my_video_1.paused() == false) {
+        document.getElementById("pp").style.backgroundImage = "url('https://www.francetvinfo.fr/skin/dist/www/img/player-franceinfo/pause-3b114f152b.png')"
+        document.getElementById("pp").style.backgroundColor = "rgb(255, 195, 0)"
+        nowp = 1
+      } else {
+        document.getElementById("pp").style.backgroundImage = "url('https://www.francetvinfo.fr/skin/dist/www/img/player-franceinfo/play-8d96701de3.png')"
+        document.getElementById("pp").style.backgroundColor = "rgb(255, 195, 0)"
+        nowp = 0
+      }
+    }
+
+    function pClick() {
+      if (nowp == 1) {
+        videojs.players.my_video_1.pause()
+      } else {
+        Move(0)
+      }
+    }
+
+    function mClick() {
+      if (videojs.players.my_video_1.muted() == true) {
+        videojs.players.my_video_1.muted(false)
+      } else {
+        videojs.players.my_video_1.muted(true)
+      }
+      volDisp()
+    }
+
+    function volDisp() {
+      if (videojs.players.my_video_1.muted() == true || document.getElementById("son").value == 0) {
+        document.getElementById("mut").style.backgroundImage = "url('http://u.cubeupload.com/Bouboufez/audiooff2.png')"
+      } else {
+        document.getElementById("mut").style.backgroundImage = "url('http://u.cubeupload.com/Bouboufez/audioon.png')"
+      }
+    }
+
+    function vol() {
+      var slider = document.getElementById("son");
+     videojs.players.my_video_1.volume(slider.value / 100)
+      volDisp() 
+
+      slider.oninput = function () {
+        videojs.players.my_video_1.volume(this.value / 100)
+      volDisp()
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="img-top"></div>
+    <h1>replay radio</h1>
+  </header>
+  <div id="cont" style="width:300px;height:170px">
+    <video id="my_video_1" name="vid" class="video-js vjs-fluid vjs-default-skin" controls preload="auto"
+      data-setup='{"liveui": true, "autoplay": true}' autoplay
+      poster="https://www.francetvinfo.fr//skin//dist//www//img//temp//dummy-28ac5eb42b.svg">
+      <source id="test" src="" type="application/x-mpegURL">
+    </video>
+    <script src="https://vjs.zencdn.net/7.8.2/video.js" type="text/javascript"></script>
+
+    <button class="play" id="pp" onclick="pClick()" style="background-color: rgb(255, 195, 0);"></button>
+    <div id="hour" class="hours">00:00:00</div>
+    <br><br><br><br>
+    <button class="mute" onclick="mClick()" id="mut"></button>
+    <input type="range" min="0" max="100" step="1" class="vol" value="100" onclick="vol()" id="son">
+
+    <br><br><br><br><br>
+
+    <button class="timeset" onclick="Move(-30)">-30s</button>
+    <button class="timeset" onclick="Move(-20)">-20s</button>
+    <button class="timeset" onclick="Move(-10)">-10s</button>
+    <br />
+    <button class="timeset" onclick="Move(10)">+10s</button>
+    <button class="timeset" onclick="Move(20)">+20s</button>
+    <button class="timeset" onclick="Move(30)">+30s</button>
+    <br><br>
+  </div>
+  <table id="form">
+    <tr>
+      <th colspan="2">A quelle heure souhaitez-vous revenir ?</th>
+    </tr>
+    <tr>
+      <td>Jour :</td>
+      <td>
+        <input type="radio" id="day0" name="jour" value="0" checked><label
+          onclick="document.getElementById('day0').checked = true;">Aujourd'hui</label>
+        <input type="radio" id="day1" name="jour" value="1"><label
+          onclick="document.getElementById('day1').checked = true;">Hier</label>
+        <input type="radio" id="day2" name="jour" value="2"><label
+          onclick="document.getElementById('day2').checked = true;">Avant-hier</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Heures :</td>
+      <td><input type="number" id="heur" min="0" max="23"></td>
+    </tr>
+    <tr>
+      <td>Minutes :</td>
+      <td><input type="number" id="min" min="0" max="59"></td>
+    </tr>
+    <tr>
+      <td>Secondes :</td>
+      <td><input type="number" id="sec" min="0" max="59"></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align: center;"><button type="button" id="submit" onclick="go(1)">Ecouter le
+          replay</button></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align: center;"><br><br>Vous préférez écouter le direct ?<br><button type="button"
+          id="submit" onclick="go(0)">Ecouter le direct</button></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align: center;"><br><button type="button" onclick="adv()" id="advsubmit">Paramètres
+          avancés <img id="arrow" src="http://u.cubeupload.com/Bouboufez/trans.gif"></button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table id="adv">
+          <tr>
+            <td>Retard du flux</td>
+            <td>
+              <div id="valrange" style="font-size: 15px;"></div><input type="range" id="del" name="delai" min="0"
+                max="60" step="5" value="15" onclick="Vrange()" class="slider">
+            </td>
+          </tr>
+          <tr></tr>
+          <tr id="adv2">
+            <td>Qualité</td>
+            <td><select id="selc">
+                <option value=1 selected="selected">Auto</option>
+                <option value=2>Haute</option>
+                <option value=3>Standard</option>
+                <option value=4>Basse</option>
+              </select></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table><br><br>
+  <button type="button" id="but" onclick="window.location.reload()">Ecouter à une autre heure</button>
+
+  <script>
+    Vrange()
+  </script>
+
+<div class="preload">
+  <img src="http://u.cubeupload.com/Bouboufez/audiooff2.png">
+  <img src="http://u.cubeupload.com/Bouboufez/audioon.png">
+  <img src="https://framapic.org/DctsFrEd2HQ6/Tf94EY2pl8zo.webp">
+  <img src="https://www.francetvinfo.fr/skin/dist/www/img/player-franceinfo/pause-3b114f152b.png">
+  <img src="https://www.francetvinfo.fr/skin/dist/www/img/player-franceinfo/play-8d96701de3.png">
+</div>
+
+  <footer>
+    <div style="font-size: 12px;">
+      Projet développé par Bouboufez • 2020<br>
+      Version 1.3.1<br>
+    </div>
+    <br>La page utilise le lecteur video.js
+    <br>franceinfo: est une radio de Radio France
+  </footer>
+</body>
+
+</html>

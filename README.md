@@ -49,4 +49,4 @@ La page utilise le lecteur video.js pour lire le flux fourni par Radio France.
 
 franceinfo est un radio de Radio France, tous les droits sur le contenu lu par cette page leur revient. Tous les contenus (images, sons, polices), proviennent directement des serveurs de Radio France et de France.tv. La page ne peut pas être exécutée hors connexion.
 
-Projet initié, créé et maintenu par @Bouboufez depuis mai 2020.
+Projet initié, créé et maintenu par Bouboufez depuis mai 2020.

@@ -1,5 +1,5 @@
 # franceinfo replay
-#### version 1.3.1 (17/06/2020)
+#### version 1.3.2 (28//06/2020)
 franceinfo replay est un petit projet codé sous forme d'une page web pour accéder au replay ou au direct de franceinfo fourni par Radio France directement dans un navigateur.
 
 La page est légère, optimisée pour les appareils mobiles et dispose d'un dark theme.
@@ -43,6 +43,16 @@ Une fois votre choix (replay ou direct) fait et les paramètres saisis s'ouvre l
 Ce lecteur peut être mis en pause (le flux est rechargé lors de l'appui sur play), muté, et le volume peut être ajusté.
 Des boutons sont présents pour faire une avance ou un recul de 10, 20 ou 30 secondes dans le flux.
 Il est également possible d'arrêter la lecture pour reparamétrer son replay.
+
+## Info : objectifs de la version 2.0
+Cet été, une version 2.0 du projet devrait voir le jour.
+
+Les changements prévus dans cette nouvelle version sont :
+* La page couvrira l'ensemble des antennes de Radio France, et non plus seulement franceinfo. Le thème graphique sera adapté en conséquence
+* Il sera possible de passer des arguments directement dans l'URL de la page (de la façon `domaine.com/page.html?argument=valeur` pour gagner du temps. Par exemple, si vous n'écoutez que le direct de franceinfo, vous pourrez mettre en favori l'url modifiée pour accéder directement au replay de franceinfo.
+* Diverses améliorations à suivre prochainement
+
+Le développement de la v1 s'arrêtera mais elle sera toujours téléchargeable, et même mise à jour de temps en temps si besoin pour corriger des bugs ou réaliser quelques changements mineurs.
 
 ## Remerciements et crédits
 La page utilise le lecteur video.js pour lire le flux fourni par Radio France.

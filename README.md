@@ -8,7 +8,7 @@ La page est légère, optimisée pour les appareils mobiles et dispose d'un dark
 
 Télécharger la dernière version [ici](https://github.com/Bouboufez/franceinfo-replay/releases).
 
-**Attention : pensez à bien télécharger la dernière version stable !**
+**Attention : pensez à bien télécharger [la dernière version stable !](https://github.com/Bouboufez/franceinfo-replay/releases/latest)**
 
 Ouvrir le fichier html à l'aide d'un navigateur récent et à jour (évitez Internet Explorer).
 

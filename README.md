@@ -1,5 +1,5 @@
 # franceinfo replay
-#### version 1.3.2 (28/06/2020)
+#### version 2.0 alpha 2
 franceinfo replay est un petit projet codé sous forme d'une page web pour accéder au replay ou au direct de franceinfo fourni par Radio France directement dans un navigateur.
 
 La page est légère, optimisée pour les appareils mobiles et dispose d'un dark theme.

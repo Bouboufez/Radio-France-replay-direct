@@ -8,6 +8,8 @@ La page est légère, optimisée pour les appareils mobiles et dispose d'un dark
 
 Télécharger la dernière version [ici](https://github.com/Bouboufez/franceinfo-replay/releases).
 
+**Attention : pensez à bien télécharger la dernière version stable !**
+
 Ouvrir le fichier html à l'aide d'un navigateur récent et à jour (évitez Internet Explorer).
 
 ## Fonctionnalités
@@ -44,15 +46,10 @@ Ce lecteur peut être mis en pause (le flux est rechargé lors de l'appui sur pl
 Des boutons sont présents pour faire une avance ou un recul de 10, 20 ou 30 secondes dans le flux.
 Il est également possible d'arrêter la lecture pour reparamétrer son replay.
 
-## Info : objectifs de la version 2.0
-Cet été, une version 2.0 du projet devrait voir le jour.
+## Version 2.0
+Une nouvelle version 2.0 est en cours de developpement. Elle prévoit de supporter l'ensemble des antennes de Radio France et d'améliroer de nombreuses fonctionnalités.
 
-Les changements prévus dans cette nouvelle version sont :
-* La page couvrira l'ensemble des antennes de Radio France, et non plus seulement franceinfo. Le thème graphique sera adapté en conséquence
-* Il sera possible de passer des arguments directement dans l'URL de la page (de la façon `domaine.com/page.html?argument=valeur` pour gagner du temps. Par exemple, si vous n'écoutez que le direct de franceinfo, vous pourrez mettre en favori l'url modifiée pour accéder directement au replay de franceinfo.
-* Diverses améliorations à suivre prochainement
-
-Le développement de la v1 s'arrêtera mais elle sera toujours téléchargeable, et même mise à jour de temps en temps si besoin pour corriger des bugs ou réaliser quelques changements mineurs.
+Vous pouvez retrouver le développement de cette nouvelle version [ici](https://github.com/Bouboufez/franceinfo-replay/tree/v2.0-alpha)
 
 ## Remerciements et crédits
 La page utilise le lecteur video.js pour lire le flux fourni par Radio France.

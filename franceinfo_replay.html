@@ -5,7 +5,8 @@
   <title>Radio France - Replay & direct</title>
   <meta charset="UTF-8">
   <meta name="title" content="Radio France - Replay & direct">
-  <meta name="description" content="Ecouter le direct ou le replay, à l'heure de votre choix, de toutes les antennes de Radio France">
+  <meta name="description"
+    content="Ecouter le direct ou le replay, à l'heure de votre choix, de toutes les antennes de Radio France">
   <meta name="keywords" content="replay, radio, Radio France, direct">
   <meta name=" author" content="Bouboufez">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +14,10 @@
   <meta name="color-scheme" content="light dark">
   <link href="https://www.radiofrance.fr/themes/custom/radiofrance/favicon.ico" rel="icon" type="image/png">
   <link rel="apple-touch-icon" href="https://www.radiofrance.fr/themes/custom/radiofrance/images/favicon-57.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="https://www.radiofrance.fr/themes/custom/radiofrance/images/favicon-72.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="https://www.radiofrance.fr/themes/custom/radiofrance/images/favicon-114.png">
+  <link rel="apple-touch-icon" sizes="72x72"
+    href="https://www.radiofrance.fr/themes/custom/radiofrance/images/favicon-72.png">
+  <link rel="apple-touch-icon" sizes="114x114"
+    href="https://www.radiofrance.fr/themes/custom/radiofrance/images/favicon-114.png">
   <style>
     #but,
     #but2,
@@ -261,6 +264,10 @@
 
     select {
       font-family: Arial;
+      background-color: #F0F0F0;
+      border: 2px solid #353535;
+      color: #353535;
+      border-radius: 2px;
     }
 
     #sopt0,
@@ -272,6 +279,25 @@
 
     #livevid {
       display: none;
+    }
+
+    #contanim {
+      height: 0px;
+      overflow: hidden;
+      clear: both;
+    }
+
+    ::selection {
+      background-color: #353535;
+      color: #B4B4B4;
+    }
+
+    input[type="number"] {
+      font-family: Arial;
+      background-color: #F0F0F0;
+      border: 2px solid #353535;
+      color: #353535;
+      border-radius: 2px;
     }
 
     /* Dark theme */
@@ -307,12 +333,23 @@
         text-decoration: underline;
         color: #969696;
       }
-    }
 
-    #contanim {
-      height: 0px;
-      overflow: hidden;
-      clear: both;
+      ::selection {
+        color: #353535;
+        background-color: #E1E1E1;
+      }
+
+      select {
+        background-color: #494949;
+        border: 2px solid #E1E1E1;
+        color: #E1E1E1;
+      }
+
+      input[type="number"] {
+        background-color: #494949;
+        border: 2px solid #E1E1E1;
+        color: #E1E1E1;
+      }
     }
 
     /* Animations */
@@ -445,6 +482,8 @@
     var pauset = 0;
     var radid
     var livevid
+    var hls
+    var arg = []
     var data = [
       { statnom: "France Inter", statlien: "franceinter" },
       { statnom: "franceinfo:", statlien: "franceinfo" },
@@ -608,8 +647,7 @@
         if (!Hls.isSupported()) {
           video.src = source;
         } else {
-          // For more Hls.js options, see https://github.com/dailymotion/hls.js
-          const hls = new Hls();
+          hls = new Hls();
           hls.loadSource(source);
           hls.attachMedia(video);
           window.hls = hls;
@@ -629,6 +667,7 @@
         pbut = setInterval(pButton, 10)
         autoplay = setInterval(autop, 10)
         vol()
+        checkX()
       }
     }
 
@@ -679,11 +718,13 @@
 
       var video = document.getElementById("lecteur")
       var source = blink + (x + dela - 15)
+      hls.detachMedia()
+
 
       if (!Hls.isSupported()) {
         video.src = source;
       } else {
-        const hls = new Hls();
+        hls = new Hls();
         hls.loadSource(source);
         hls.attachMedia(video);
         window.hls = hls;
@@ -692,6 +733,7 @@
       if (tmp == 1) {
         video.play()
       }
+      checkX()
     }
 
     function Clock() {
@@ -866,6 +908,54 @@
       }
     }
 
+    function ssr() {
+      if (radid >= 32) {
+        document.getElementById("sr1").selectedIndex = 3
+        sr()
+        document.getElementById("sr5").selectedIndex = radid - 31
+        ss(3)
+      }
+      if (radid >= 25 && radid <= 31) {
+        document.getElementById("sr1").selectedIndex = 6
+        sr()
+        document.getElementById("sr4").selectedIndex = radid - 23
+        ss(2)
+      }
+      if (radid >= 14 && radid <= 24) {
+        document.getElementById("sr1").selectedIndex = 7
+        sr()
+        document.getElementById("sr3").selectedIndex = radid - 12
+        ss(1)
+      }
+      if (radid >= 6 && radid <= 13) {
+        document.getElementById("sr1").selectedIndex = 5
+        sr()
+        document.getElementById("sr2").selectedIndex = radid - 4
+        ss(0)
+      }
+      if (radid <= 5) {
+        if (radid == 2) {
+          document.getElementById("sr1").selectedIndex = 5
+          sr()
+          document.getElementById("sr2").selectedIndex = 1
+          ss(0)
+        } else if (radid == 5) {
+          document.getElementById("sr1").selectedIndex = 7
+          sr()
+          document.getElementById("sr3").selectedIndex = 1
+          ss(1)
+        } else if (radid == 4) {
+          document.getElementById("sr1").selectedIndex = 6
+          sr()
+          document.getElementById("sr4").selectedIndex = 1
+          ss(2)
+        } else {
+          document.getElementById("sr1").selectedIndex = radid + 1
+          sr()
+        }
+      }
+    }
+
 
     function disp() {
 
@@ -910,6 +1000,45 @@
     function setTitle() {
       document.querySelector("title").innerHTML = document.getElementById("titl1").innerHTML + " - " + document.getElementById("titl2").innerHTML
     }
+
+    function checkX() {
+      var dat = new Date()
+      var tsec = dat.getTime()
+      if (x > tsec) {
+        Move(-1 * tsec)
+      }
+    }
+
+    function getArguments() {
+      var base = window.location.search
+      base = base.slice(1, base.length)
+      var tmparguments = base.split("&")
+      var k
+      for (k = 0; k < tmparguments.length; k++) {
+        var tmpsplit = tmparguments[k].split("=")
+        if (arg.length == 0) {
+          arg = [tmpsplit[0], tmpsplit[1]]
+        } else {
+          arg.push(tmpsplit[0])
+          arg.push(tmpsplit[1])
+        }
+      }
+    }
+
+    function checkArguments() {
+      var y
+      for (y = 0; y < arg.length; y = y + 2) {
+        if (arg[y] == "radio") {
+          var z
+          for (z = 0; z < data.length; z++) {
+            if (arg[y + 1] == data[z].statlien) {
+              radid = z
+              ssr()
+            }
+          }
+        }
+      }
+    }
   </script>
 </head>
 
@@ -930,11 +1059,11 @@
       <div id="playdiv"></div>
     </button>
     <div id="hour" class="hours">00:00:00</div>
-    <br><br><br><br>
+    <br><br><br>
     <button class="mute" onclick="mClick()" id="mut"></button>
     <input type="range" min="0" max="100" step="1" class="vol" value="100" onclick="vol()" id="son">
 
-    <br><br><br><br><br>
+    <br><br><br><br>
 
     <button class="timeset" id="timeset1" onclick="Move(-30)">-30s</button>
     <button class="timeset" id="timeset2" onclick="Move(-20)">-20s</button>
@@ -1069,7 +1198,9 @@
 
   <table id="form">
     <tr id="repfor1">
-      <th colspan="2"><h2>A quelle heure souhaitez-vous revenir ?</h2></th>
+      <th colspan="2">
+        <h2>A quelle heure souhaitez-vous revenir ?</h2>
+      </th>
     </tr>
     <tr id="repfor2">
       <td>Jour :</td>
@@ -1095,12 +1226,14 @@
       <td><input type="number" id="sec" min="0" max="59"></td>
     </tr>
     <tr id="repfor6">
-      <td colspan="2" style="text-align: center;"><button type="button" id="submit" class="subrep" onclick="go(1)">Ecouter le
+      <td colspan="2" style="text-align: center;"><button type="button" id="submit" class="subrep"
+          onclick="go(1)">Ecouter le
           replay</button></td>
     </tr>
     <tr>
-      <td colspan="2" style="text-align: center;"><h2>Cette radio en direct :</h2><button type="button" id="submit"
-          onclick="go(0)">Ecouter le direct</button></td>
+      <td colspan="2" style="text-align: center;">
+        <h2>Cette radio en direct :</h2><button type="button" id="submit" onclick="go(0)">Ecouter le direct</button>
+      </td>
     </tr>
     <td id="livevid" colspan="2" style="text-align: center;"><button type="button" id="blivevid"
         onclick="window.location = livevid">Regarder le direct vidéo</button></td>
@@ -1135,21 +1268,27 @@
         </div>
       </td>
     </tr>
-  </table><br><br>
-  <button type="button" id="but2">Ecouter à une autre heure</button>
+  </table><br>
+  <button type="button" id="but2"
+    onclick="window.location = 'RF replay direct.html?radio=' + data[radid - 1].statlien">Ecouter à une autre
+    heure</button>
   <br>
-  <button type="button" id="but" onclick="window.location.reload()">Ecouter une autre station</button>
+  <button type="button" id="but" onclick="window.location.search = ''">
+    Ecouter une autre station
+  </button>
 
 
   <script>
-    Vrange()
-
     // Corrige un bug de Firefox
     document.getElementById("sr1").selectedIndex = 0
     document.getElementById("sr2").selectedIndex = 0
     document.getElementById("sr3").selectedIndex = 0
     document.getElementById("sr4").selectedIndex = 0
     document.getElementById("sr5").selectedIndex = 0
+
+    Vrange()
+    getArguments()
+    checkArguments()
   </script>
 
   <div class="preload">
@@ -1160,7 +1299,7 @@
   <footer>
     <div style="font-size: 12px;">
       Projet développé par Bouboufez • 2020<br>
-      Version 2.0 alpha.3<br>
+      Version 2.0 beta.1<br>
     </div>
     <br>La page utilise la bibliothèque hls.js
     <br>Tous les droits reviennent à Radio France

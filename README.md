@@ -1,5 +1,5 @@
 # franceinfo replay
-#### version 2.0 alpha 3
+#### version 2.0 beta 1
 franceinfo replay est un petit projet codé sous forme d'une page web pour accéder au replay ou au direct des différentes antennes de Radio France en lisant le flux qu'ils fournissent directement dans un navigateur.
 
 La page est légère, optimisée pour les appareils mobiles et dispose d'un dark theme.
@@ -22,14 +22,14 @@ Ouvrir le fichier html à l'aide d'un navigateur récent et à jour (évitez Int
 - [x] Retrait de la possibilité de choisir le flux hifi pour les antennes qui n'en disposent pas
 - [x] Retrait de la possibilité de choisir le replay pour les flux qui n'en disposent pas (notamment les fipettes semblent ne pas disposer de cette fonctionnalité, à vérifier
 - [x] Ajout du bouton direct vidéo pour les radios qui en disposent
-- [ ] Ajout d'un deuxième bouton sous le player : "écouter une autre radio"
-- [ ] Ajout du support des arguments dans l'URL
+- [x] Ajout d'un deuxième bouton sous le player : "écouter une autre radio"
+- [ ] Ajout du support des arguments dans l'URL **(en cours d'implémentation)**
 - [x] Adaptation du CSS à la charte graphique de Radio France
 - [x] Passage de toutes les images en vectoriel/pur CSS
 - [x] Adaptation du dark theme au nouveau CSS
 - [x] Changement du favicon et du titre de la page qui s"adapte selon le contenu en cours de lecture
 - [ ] Ajouter davantage d'animations ? (la charte de RF recommande l'utilisation d'animations douces pour faire apparaître ou disparaître des éléments, afin de permettre une meilleure compréhension du contenu)
-- [ ] Tester et s'assurer de la compatibilité de la page sur mobile, et sur différents navigateurs, y compris des navigateurs plus anciens, dans le but de créer un tableau de compatibilité
+- [x] Tester et s'assurer de la compatibilité de la page sur mobile, et sur différents navigateurs, y compris des navigateurs plus anciens, dans le but de créer un tableau de compatibilité
 
 ## Remerciements et crédits
 La page utilise la bibliothèque hls.js pour lire les flux fournis par Radio France.

@@ -184,6 +184,7 @@
       margin-left: 20px;
       margin-bottom: 0px;
       animation: rotate 1.1s infinite linear;
+      transition: none;
     }
 
     #playdiv {
@@ -487,7 +488,7 @@
     var arg = []
     var data = [
       { statnom: "France Inter", statlien: "franceinter" },
-      { statnom: "franceinfo:", statlien: "franceinfo" },
+      { statnom: "franceinfo", statlien: "franceinfo" },
       { statnom: "France Musique", statlien: "francemusique" },
       { statnom: "France culture", statlien: "franceculture" },
       { statnom: "Mouv' (national)", statlien: "mouv" },
@@ -529,11 +530,11 @@
       { statnom: "France Bleu Besançon", statlien: "fbbesancon" },
       { statnom: "France Bleu Bourgogne", statlien: "fbbourgogne" },
       { statnom: "France Bleu Breizh Izel", statlien: "fbbreizizel" },
-      { statnom: "France Bleu Champagne-Ardennes", statlien: "fbchampagne" },
-      { statnom: "France Bleu Contentin", statlien: "fbcotentin" },
+      { statnom: "France Bleu Champagne-Ardenne", statlien: "fbchampagne" },
+      { statnom: "France Bleu Cotentin", statlien: "fbcotentin" },
       { statnom: "France Bleu Creuse", statlien: "fbcreuse" },
       { statnom: "France Bleu Drôme-Ardèche", statlien: "fbdromeardeche" },
-      { statnom: "France Bleu Gard-Lozerre", statlien: "fbgardlozere" },
+      { statnom: "France Bleu Gard-Lozère", statlien: "fbgardlozere" },
       { statnom: "France Bleu Gascogne", statlien: "fbgascogne" },
       { statnom: "France Bleu Gironde", statlien: "fbgironde" },
       { statnom: "France Bleu Hérault", statlien: "fbherault" },
@@ -1028,7 +1029,6 @@
 
     function checkArguments() {
       var y
-      var action = 0
       for (y = 0; y < arg.length; y = y + 2) {
         if (arg[y] == "radio") {
           var z
@@ -1078,6 +1078,18 @@
         }
       }
     }
+
+    function NewReplay(keep) {
+      if (keep == 1) {
+        var narg = "?radio=" + data[radid - 1].statlien
+        }
+        if (keep == 0) {
+        var narg = ""
+        }
+      var nlink = window.location.protocol + "//" + window.location.hostname + window.location.pathname + narg
+        window.history.pushState(null, "", nlink)
+      window.location.reload()
+    }
   </script>
 </head>
 
@@ -1118,9 +1130,9 @@
       Choisissez une radio
     </h2>
     <select class="selrad" id="sr1" onchange="sr()" autofocus>
-      <option selected="selected">Séléctionner...</option>
+      <option selected="selected">Sélectionner...</option>
       <option>France Inter</option>
-      <option>franceinfo:</option>
+      <option>franceinfo</option>
       <option>France Bleu</option>
       <option>France Culture</option>
       <option>France Musique</option>
@@ -1133,7 +1145,7 @@
       Choisissez une webradio
     </h2>
     <select class="selrad" id="sr2" onchange="ss(0)">
-      <option selected="selected">Séléctionner...</option>
+      <option selected="selected">Sélectionner...</option>
       <option>France Musique (national)</option>
       <option>Classique Easy</option>
       <option>La Baroque</option>
@@ -1150,7 +1162,7 @@
       Choisissez une webradio
     </h2>
     <select class="selrad" id="sr3" onchange="ss(1)">
-      <option selected="selected">Séléctionner...</option>
+      <option selected="selected">Sélectionner...</option>
       <option>FIP (national)</option>
       <option>FIP Bordeaux</option>
       <option>FIP Nantes</option>
@@ -1170,7 +1182,7 @@
       Choisissez une webradio
     </h2>
     <select class="selrad" id="sr4" onchange="ss(2)">
-      <option selected="selected">Séléctionner...</option>
+      <option selected="selected">Sélectionner...</option>
       <option>Mouv' (national)</option>
       <option>Rap Français</option>
       <option>100% Mix</option>
@@ -1186,7 +1198,7 @@
       Choisissez une locale
     </h2>
     <select class="selrad" id="sr5" onchange="ss(3)">
-      <option selected="selected">Séléctionner...</option>
+      <option selected="selected">Sélectionner...</option>
       <option>Alsace</option>
       <option>Elsass</option>
       <option>Armorique</option>
@@ -1198,11 +1210,11 @@
       <option>Besançon</option>
       <option>Bourgogne</option>
       <option>Breizh Izel</option>
-      <option>Champagne-Ardennes</option>
-      <option>Contentin</option>
+      <option>Champagne-Ardenne</option>
+      <option>Cotentin</option>
       <option>Creuse</option>
       <option>Drôme-Ardèche</option>
-      <option>Gard-Lozerre</option>
+      <option>Gard-Lozère</option>
       <option>Gascogne</option>
       <option>Gironde</option>
       <option>Hérault</option>
@@ -1309,16 +1321,15 @@
     </tr>
   </table><br>
   <button type="button" id="but2"
-    onclick="window.location = 'RF replay direct.html?radio=' + data[radid - 1].statlien">Ecouter à une autre
+    onclick="NewReplay(1)">Ecouter à une autre
     heure</button>
   <br>
-  <button type="button" id="but" onclick="window.location.search = ''">
+  <button type="button" id="but" onclick="NewReplay(0)">
     Ecouter une autre station
   </button>
 
 
   <script>
-    // Corrige un bug de Firefox
     document.getElementById("sr1").selectedIndex = 0
     document.getElementById("sr2").selectedIndex = 0
     document.getElementById("sr3").selectedIndex = 0
@@ -1338,7 +1349,7 @@
   <footer>
     <div style="font-size: 12px;">
       Projet développé par Bouboufez • 2020<br>
-      Version 2.0<br>
+      Version 2.0.1<br>
     </div>
     <br>La page utilise la bibliothèque hls.js
     <br>Tous les droits reviennent à Radio France

@@ -167,6 +167,7 @@
       margin-right: 5px;
       margin-top: 15px;
       clear: both;
+      width: 80px;
     }
 
     button.play {
@@ -501,6 +502,7 @@
       { statnom: "France Musique la Contemporaine", statlien: "francemusiquelacontemporaire" },
       { statnom: "France Musique Ocora Musiques du Monde", statlien: "francemusiqueocoramonde" },
       { statnom: "France Musique la B.O. Musiques de Films", statlien: "francemusiquelabo" },
+      { statnom: "France Musique Opéra", statlien: "francemusiqueopera" },
       { statnom: "FIP Bordeaux", statlien: "fipbordeaux" },
       { statnom: "FIP Nantes", statlien: "fipnantes" },
       { statnom: "FIP Strasbourg", statlien: "fipstrasbourg" },
@@ -520,7 +522,7 @@
       { statnom: "Mouv' RnB & Soul", statlien: "mouvrnb" },
       { statnom: "Mouv' DanceHall", statlien: "mouvdancehall" },
       { statnom: "France Bleu Alsace", statlien: "fbalsace" },
-      { statnom: "France Bleu Elsass", statlien: "fbelsasss" },
+      { statnom: "France Bleu Elsass", statlien: "fbelsass" },
       { statnom: "France Bleu Armorique", statlien: "fbarmorique" },
       { statnom: "France Bleu Auxerre", statlien: "fbauxerre" },
       { statnom: "France Bleu Azur", statlien: "fbazur" },
@@ -893,18 +895,18 @@
           if (item == 1) {
             radid = 6
           } else {
-            radid = 15 - 2 + item
+            radid = 16 - 2 + item
           }
         }
         if (sid == 2) {
           if (item == 1) {
             radid = 5
           } else {
-            radid = 26 - 2 + item
+            radid = 27 - 2 + item
           }
         }
         if (sid == 3) {
-          radid = 33 - 1 + item
+          radid = 34 - 1 + item
         }
         disp()
       }
@@ -914,22 +916,22 @@
       if (radid >= 32) {
         document.getElementById("sr1").selectedIndex = 3
         sr()
-        document.getElementById("sr5").selectedIndex = radid - 31
+        document.getElementById("sr5").selectedIndex = radid - 32
         ss(3)
       }
-      if (radid >= 25 && radid <= 31) {
+      if (radid >= 26 && radid <= 32) {
         document.getElementById("sr1").selectedIndex = 6
         sr()
-        document.getElementById("sr4").selectedIndex = radid - 23
+        document.getElementById("sr4").selectedIndex = radid - 24
         ss(2)
       }
-      if (radid >= 14 && radid <= 24) {
+      if (radid >= 15 && radid <= 25) {
         document.getElementById("sr1").selectedIndex = 7
         sr()
-        document.getElementById("sr3").selectedIndex = radid - 12
+        document.getElementById("sr3").selectedIndex = radid - 13
         ss(1)
       }
-      if (radid >= 6 && radid <= 13) {
+      if (radid >= 6 && radid <= 14) {
         document.getElementById("sr1").selectedIndex = 5
         sr()
         document.getElementById("sr2").selectedIndex = radid - 4
@@ -963,7 +965,7 @@
 
       var ii
       for (ii = 1; ii <= 6; ii++) {
-        if (radid >= 6 && radid <= 32) {
+        if (radid >= 6 && radid <= 33) {
           document.getElementById("repfor" + ii).style.display = "none"
           document.getElementById("timeset" + ii).style.display = "none"
         } else {
@@ -988,7 +990,7 @@
       }
       dropdown = document.getElementById("selc")
 
-      if (radid >= 15 && radid <= 17 || radid >= 33 && radid != 63) {
+      if (radid >= 16 && radid <= 18 || radid >= 34 && radid != 64) {
         if (dropdown.length == 4) {
           dropdown.remove(dropdown.length - 1)
         }
@@ -1082,12 +1084,12 @@
     function NewReplay(keep) {
       if (keep == 1) {
         var narg = "?radio=" + data[radid - 1].statlien
-        }
-        if (keep == 0) {
+      }
+      if (keep == 0) {
         var narg = ""
-        }
+      }
       var nlink = window.location.protocol + "//" + window.location.hostname + window.location.pathname + narg
-        window.history.pushState(null, "", nlink)
+      window.history.pushState(null, "", nlink)
       window.location.reload()
     }
   </script>
@@ -1116,13 +1118,19 @@
 
     <br><br><br><br>
 
-    <button class="timeset" id="timeset1" onclick="Move(-30)">-30s</button>
-    <button class="timeset" id="timeset2" onclick="Move(-20)">-20s</button>
-    <button class="timeset" id="timeset3" onclick="Move(-10)">-10s</button>
-    <br />
-    <button class="timeset" id="timeset4" onclick="Move(10)">+10s</button>
-    <button class="timeset" id="timeset5" onclick="Move(20)">+20s</button>
-    <button class="timeset" id="timeset6" onclick="Move(30)">+30s</button>
+    <button class="timeset" id="timeset1" onclick="Move(-30)">
+      -30s
+    </button><button class="timeset" id="timeset2" onclick="Move(-20)">
+      -20s
+    </button><button class="timeset" id="timeset3" onclick="Move(-10)">
+      -10s
+    </button><br /><button class="timeset" id="timeset4" onclick="Move(10)">
+      +10s
+    </button><button class="timeset" id="timeset5" onclick="Move(20)">
+      +20s
+    </button><button class="timeset" id="timeset6" onclick="Move(30)">
+      +30s
+    </button>
     <br><br>
   </div>
   <div id="cur">
@@ -1152,9 +1160,10 @@
       <option>Classique Plus</option>
       <option>Concerts Radio France</option>
       <option>La Jazz</option>
-      <option>La contemporaine</option>
+      <option>La Contemporaine</option>
       <option>Ocora Musiques du Monde</option>
       <option>La B.O. Musiques de films</option>
+      <option>Opéra</option>
     </select>
   </div>
   <div id="sopt1">
@@ -1320,8 +1329,7 @@
       </td>
     </tr>
   </table><br>
-  <button type="button" id="but2"
-    onclick="NewReplay(1)">Ecouter à une autre
+  <button type="button" id="but2" onclick="NewReplay(1)">Ecouter à une autre
     heure</button>
   <br>
   <button type="button" id="but" onclick="NewReplay(0)">
@@ -1349,7 +1357,7 @@
   <footer>
     <div style="font-size: 12px;">
       Projet développé par Bouboufez • 2020<br>
-      Version 2.0.1<br>
+      Version 2.0.2<br>
     </div>
     <br>La page utilise la bibliothèque hls.js
     <br>Tous les droits reviennent à Radio France

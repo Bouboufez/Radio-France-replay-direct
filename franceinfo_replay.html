@@ -499,13 +499,10 @@
       { statnom: "France Musique Classique Plus", statlien: "francemusiqueclassiqueplus" },
       { statnom: "France Musique Concerts Radio France", statlien: "francemusiqueconcertsradiofrance" },
       { statnom: "France Musique la Jazz", statlien: "francemusiquelajazz" },
-      { statnom: "France Musique la Contemporaine", statlien: "francemusiquelacontemporaire" },
+      { statnom: "France Musique la Contemporaine", statlien: "francemusiquelacontemporaine" },
       { statnom: "France Musique Ocora Musiques du Monde", statlien: "francemusiqueocoramonde" },
       { statnom: "France Musique la B.O. Musiques de Films", statlien: "francemusiquelabo" },
       { statnom: "France Musique Opéra", statlien: "francemusiqueopera" },
-      { statnom: "FIP Bordeaux", statlien: "fipbordeaux" },
-      { statnom: "FIP Nantes", statlien: "fipnantes" },
-      { statnom: "FIP Strasbourg", statlien: "fipstrasbourg" },
       { statnom: "FIP Rock", statlien: "fiprock" },
       { statnom: "FIP Jazz", statlien: "fipjazz" },
       { statnom: "FIP Groove", statlien: "fipgroove" },
@@ -517,7 +514,7 @@
       { statnom: "Mouv' Rap Français", statlien: "mouvrapfr" },
       { statnom: "Mouv' 100% Mix", statlien: "mouv100p100mix" },
       { statnom: "Mouv' Classics", statlien: "mouvclassics" },
-      { statnom: "Mouv' Kids 'n Familly", statlien: "mouvkidsnfamilly" },
+      { statnom: "Mouv' Kids 'n Family", statlien: "mouvkidsnfamily" },
       { statnom: "Mouv' Rap US", statlien: "mouvrapus" },
       { statnom: "Mouv' RnB & Soul", statlien: "mouvrnb" },
       { statnom: "Mouv' DanceHall", statlien: "mouvdancehall" },
@@ -563,7 +560,7 @@
       { statnom: "France Bleu Roussillon", statlien: "fbroussillon" },
       { statnom: "France Bleu Saint-Etienne Loire", statlien: "fbstetienne" },
       { statnom: "France Bleu Sud Lorraine", statlien: "fbsudlorraine" },
-      { statnom: "France Bleu Toulouse", statlien: "fbtoulouse" },
+      { statnom: "France Bleu Occitanie", statlien: "fbtoulouse" },
       { statnom: "France Bleu Touraine", statlien: "fbtouraine" },
       { statnom: "France Bleu Vaucluse", statlien: "fbvaucluse" },
     ]
@@ -712,32 +709,42 @@
     }
 
     function Move(time) {
+      if (nowp == 0) {
+        pClick()
+      }
+      seek(time)
+    }
+
+    function seek(time) {
       x = x - time;
+
+      if (x <= (-1 * dela + 15)) {
+        document.getElementById("titl1").innerHTML = "Direct"
+      } else {
+        document.getElementById("titl1").innerHTML = "Replay"
+      }
+      setTitle()
+
       var tmp = 0
       if (x < (-1 * dela + 15)) {
         x = -1 * dela + 15
         tmp = 1
         window.alert("Vous regardez déjà le flux en direct, vous ne pouvez pas avancer davantage")
-      }
-
-      var video = document.getElementById("lecteur")
-      var source = blink + (x + dela - 15)
-      hls.detachMedia()
-
-
-      if (!Hls.isSupported()) {
-        video.src = source;
       } else {
-        hls = new Hls();
-        hls.loadSource(source);
-        hls.attachMedia(video);
-        window.hls = hls;
-      }
-      video.play()
-      if (tmp == 1) {
+        var video = document.getElementById("lecteur")
+        var source = blink + (x + dela - 15)
+        hls.detachMedia()
+        if (!Hls.isSupported()) {
+          video.src = source;
+        } else {
+          hls = new Hls();
+          hls.loadSource(source);
+          hls.attachMedia(video);
+          window.hls = hls;
+        }
         video.play()
+        checkX()
       }
-      checkX()
     }
 
     function Clock() {
@@ -797,7 +804,7 @@
         video.pause()
         pauset = tdate.getTime()
       } else {
-        Move(Math.ceil((pauset - tdate.getTime() - 1000) / 1000))
+        seek(Math.ceil((pauset - tdate.getTime() - 1000) / 1000))
       }
     }
 
@@ -902,30 +909,30 @@
           if (item == 1) {
             radid = 5
           } else {
-            radid = 27 - 2 + item
+            radid = 24 - 2 + item
           }
         }
         if (sid == 3) {
-          radid = 34 - 1 + item
+          radid = 31 - 1 + item
         }
         disp()
       }
     }
 
     function ssr() {
-      if (radid >= 33) {
+      if (radid >= 30) {
         document.getElementById("sr1").selectedIndex = 3
         sr()
-        document.getElementById("sr5").selectedIndex = radid - 32
+        document.getElementById("sr5").selectedIndex = radid - 29
         ss(3)
       }
-      if (radid >= 26 && radid <= 32) {
+      if (radid >= 26 && radid <= 29) {
         document.getElementById("sr1").selectedIndex = 6
         sr()
-        document.getElementById("sr4").selectedIndex = radid - 24
+        document.getElementById("sr4").selectedIndex = radid - 21
         ss(2)
       }
-      if (radid >= 15 && radid <= 25) {
+      if (radid >= 15 && radid <= 22) {
         document.getElementById("sr1").selectedIndex = 7
         sr()
         document.getElementById("sr3").selectedIndex = radid - 13
@@ -965,7 +972,7 @@
 
       var ii
       for (ii = 1; ii <= 6; ii++) {
-        if (radid >= 6 && radid <= 33) {
+        if (radid >= 6 && radid <= 30) {
           document.getElementById("repfor" + ii).style.display = "none"
           document.getElementById("timeset" + ii).style.display = "none"
         } else {
@@ -990,7 +997,7 @@
       }
       dropdown = document.getElementById("selc")
 
-      if (radid >= 16 && radid <= 18 || radid >= 34 && radid != 64) {
+      if (radid >= 31 && radid != 61) {
         if (dropdown.length == 4) {
           dropdown.remove(dropdown.length - 1)
         }
@@ -1102,9 +1109,7 @@
     <h1 id="titl2"> </h1>
   </header>
   <div id="cont" style="width:300px;height:170px">
-    <video id="lecteur" name="vid" controls preload="auto" autoplay
-      poster="https://www.francetvinfo.fr//skin//dist//www//img//temp//dummy-28ac5eb42b.svg">
-      <source id="test" src="" type="application/x-mpegURL">
+    <video id="lecteur">
     </video>
     <script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js" type="text/javascript"></script>
 
@@ -1173,9 +1178,6 @@
     <select class="selrad" id="sr3" onchange="ss(1)">
       <option selected="selected">Sélectionner...</option>
       <option>FIP (national)</option>
-      <option>FIP Bordeaux</option>
-      <option>FIP Nantes</option>
-      <option>FIP Strasbourg</option>
       <option>Rock</option>
       <option>Jazz</option>
       <option>Groove</option>
@@ -1196,7 +1198,7 @@
       <option>Rap Français</option>
       <option>100% Mix</option>
       <option>Classics</option>
-      <option>Kids 'n Familly</option>
+      <option>Kids 'n Family</option>
       <option>Rap US</option>
       <option>RnB & Soul</option>
       <option>DanceHall</option>
@@ -1250,7 +1252,7 @@
       <option>Roussillon</option>
       <option>Saint-Etienne Loire</option>
       <option>Sud Lorraine</option>
-      <option>Toulouse</option>
+      <option>Occitanie</option>
       <option>Touraine</option>
       <option>Vaucluse</option>
     </select>
@@ -1357,7 +1359,7 @@
   <footer>
     <div style="font-size: 12px;">
       Projet développé par Bouboufez • 2020<br>
-      Version 2.0.2<br>
+      Version 2.0.3<br>
     </div>
     <br>La page utilise la bibliothèque hls.js
     <br>Tous les droits reviennent à Radio France

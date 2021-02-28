@@ -1,6 +1,6 @@
 # Radio France • Replay et direct
 
-#### Version 2.0.2 (30/10/2020)
+#### Version 2.0.3 (28/02/2021)
 
 Petit projet permettant d'écouter l'ensemble des antennes radios de Radio France, en direct et en replay pour les flux qui le supportent, directement dans un navigateur.
 
@@ -11,7 +11,7 @@ Vous pouvez télécharger la dernière version du projet [à cette adresse](http
 <br>Il vous suffit ensuite uniquement d'ouvrir le fichier dans votre navigateur favori.
 
 ### Compatibilité
-Le projet est compatibile avec tous les navigateurs récents (Firefox, Chrome, Edge...) et relativement à jour, y compris Internet Explorer 11 sur Windows 8.1 et 10 **uniquement**.
+Le projet est compatibile avec tous les navigateurs récents (Firefox, Chrome, Edge...) et relativement à jour, y compris Internet Explorer 11 (sur Windows 8.1 et 10 **uniquement**).
 <br>Il fonctionne sur ordinateur comme sur mobiles et tablettes.
 
 ## Utilisation

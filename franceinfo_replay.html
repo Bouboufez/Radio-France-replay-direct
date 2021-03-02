@@ -709,7 +709,7 @@
     }
 
     function Move(time) {
-      if (nowp == 0) {
+      if (nowp == 0 && pauset != 0) {
         pClick()
       }
       seek(time)
@@ -733,7 +733,7 @@
       } else {
         var video = document.getElementById("lecteur")
         var source = blink + (x + dela - 15)
-        hls.detachMedia()
+        hls.destroy()
         if (!Hls.isSupported()) {
           video.src = source;
         } else {
@@ -804,7 +804,12 @@
         video.pause()
         pauset = tdate.getTime()
       } else {
-        seek(Math.ceil((pauset - tdate.getTime() - 1000) / 1000))
+        if (pauset == 0) {
+          Move(0)
+        } else {
+          seek(Math.ceil((pauset - tdate.getTime() - 1000) / 1000))
+          pauset = 0
+        }
       }
     }
 
@@ -1015,7 +1020,7 @@
     function checkX() {
       var dat = new Date()
       var tsec = dat.getTime()
-      if (x > tsec) {
+      if (x > 260000) {
         Move(-1 * tsec)
       }
     }
@@ -1358,8 +1363,8 @@
 
   <footer>
     <div style="font-size: 12px;">
-      Projet développé par Bouboufez • 2020<br>
-      Version 2.0.3<br>
+      Projet développé par Bouboufez • 2020-2021<br>
+      Version 2.0.3.1<br>
     </div>
     <br>La page utilise la bibliothèque hls.js
     <br>Tous les droits reviennent à Radio France

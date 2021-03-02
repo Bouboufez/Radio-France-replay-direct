@@ -1,6 +1,6 @@
 # Radio France • Replay et direct
 
-#### Version 2.0.3 (28/02/2021)
+#### Version 2.0.3.1 (02/03/2021)
 
 Petit projet permettant d'écouter l'ensemble des antennes radios de Radio France, en direct et en replay pour les flux qui le supportent, directement dans un navigateur.
 
